@@ -13,7 +13,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
+=======
+>>>>>>> a833893 (feat: Product 생성자 수정)
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,6 +102,15 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.delete(id);
         return "redirect:/api/products";
+<<<<<<< HEAD
+=======
+    }
+
+    @GetMapping("/{id}/options")
+    public ResponseEntity<List<Option>> getOptionsByProductId(@PathVariable("id") Long id) {
+        Product product = productService.findOne(id);
+        return ResponseEntity.ok(product.getOptions());
+>>>>>>> a833893 (feat: Product 생성자 수정)
     }
 
 }

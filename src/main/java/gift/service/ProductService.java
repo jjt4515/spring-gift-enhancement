@@ -1,10 +1,12 @@
 package gift.service;
 
 import gift.domain.Category;
+import gift.domain.Option;
 import gift.domain.Product;
 import gift.dto.request.OptionRequest;
 import gift.dto.request.ProductRequest;
 import gift.exception.CategoryNotFoundException;
+import gift.exception.DuplicateOptionNameException;
 import gift.exception.InvalidProductDataException;
 import gift.exception.ProductNotFoundException;
 import gift.repository.category.CategorySpringDataJpaRepository;
@@ -16,6 +18,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
+=======
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+>>>>>>> a833893 (feat: Product 생성자 수정)
 import static gift.exception.ErrorCode.*;
 
 @Service
@@ -29,14 +39,30 @@ public class ProductService {
     public ProductService(ProductSpringDataJpaRepository productRepository, CategorySpringDataJpaRepository categoryRepository, OptionService optionService) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+<<<<<<< HEAD
         this.optionService = optionService;
+=======
+        this.optionRepository = optionRepository;
+>>>>>>> a833893 (feat: Product 생성자 수정)
     }
 
     public Product register(ProductRequest productRequest, OptionRequest optionRequest) {
         Category category = categoryRepository.findByName(productRequest.getCategoryName()).
                 orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
 
-        Product product = new Product(productRequest, category);
+        List<Option> options = productRequest.getOptions().stream()
+                .map(optionRequest -> new Option(optionRequest.getName(), optionRequest.getQuantity(), null))
+                .collect(Collectors.toList());
+
+        checkForDuplicateOptions(options);
+
+        Product product = new Product(
+                productRequest.getName(),
+                productRequest.getPrice(),
+                productRequest.getImageUrl(),
+                category,
+                options
+        );
 
         try {
             Product savedProduct = productRepository.save(product);
@@ -78,4 +104,23 @@ public class ProductService {
         return product;
     }
 
+<<<<<<< HEAD
+=======
+    private void checkForDuplicateOptions(List<Option> newOptions) {
+        List<Option> allOptions = optionRepository.findAll();
+        Set<String> existingOptionNames = allOptions.stream()
+                .map(Option::getName)
+                .collect(Collectors.toSet());
+
+        Set<String> newOptionNames = new HashSet<>();
+        for (Option option : newOptions) {
+            if (!newOptionNames.add(option.getName())) {
+                throw new DuplicateOptionNameException(DUPLICATE_OPTION_NAME);
+            }
+            if (existingOptionNames.contains(option.getName())) {
+                throw new DuplicateOptionNameException(DUPLICATE_OPTION_NAME);
+            }
+        }
+    }
+>>>>>>> a833893 (feat: Product 생성자 수정)
 }
