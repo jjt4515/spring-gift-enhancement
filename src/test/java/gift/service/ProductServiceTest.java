@@ -76,9 +76,6 @@ public class ProductServiceTest {
 
     @Test
     public void testRegisterProductCategoryNotFound() {
-        mockCategory = mock(Category.class);
-        when(categoryRepository.findByName("패션")).thenReturn(Optional.of(mockCategory));
-
         ProductRequest productRequest = new ProductRequest("상의", 800, "상의.jpg", "패션");
         OptionRequest optionRequest = new OptionRequest("옵션1", 10);
 
@@ -112,9 +109,7 @@ public class ProductServiceTest {
     @Test
     public void testFindOneProduct() {
         mockProduct = mock(Product.class);
-
         Long productId = 1L;
-
         when(mockProduct.getName()).thenReturn("상의");
         when(productRepository.findById(productId)).thenReturn(Optional.of(mockProduct));
 
@@ -137,9 +132,6 @@ public class ProductServiceTest {
 
     @Test
     public void testUpdateProduct() {
-        mockProduct = mock(Product.class);
-        mockCategory = mock(Category.class);
-
         Long productId = 1L;
         ProductRequest productRequest = new ProductRequest("하의", 1200, "하의.jpg", "패션");
 
