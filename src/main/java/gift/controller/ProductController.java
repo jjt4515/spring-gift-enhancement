@@ -13,10 +13,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-<<<<<<< HEAD
 import org.springframework.http.HttpStatus;
-=======
->>>>>>> a833893 (feat: Product 생성자 수정)
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +53,31 @@ public class ProductController {
         optionService.deleteOption(productId, optionId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{productId}/options")
+    public ResponseEntity<List<Option>> getOptions(@PathVariable Long productId) {
+        List<Option> options = optionService.getOptionsByProductId(productId);
+        return ResponseEntity.ok(options);
+    }
+
+    @PostMapping("/{productId}/options")
+    public ResponseEntity<Option> addOption(@PathVariable Long productId, @RequestBody Option option) {
+        Option createdOption = optionService.addOptionToProduct(productId, option);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdOption);
+    }
+
+    @PutMapping("/options/{optionId}")
+    public ResponseEntity<Option> updateOption(@PathVariable Long optionId, @RequestBody Option optionDetails) {
+        Option updatedOption = optionService.updateOption(optionId, optionDetails);
+        return ResponseEntity.ok(updatedOption);
+    }
+
+    @DeleteMapping("/options/{optionId}")
+    public ResponseEntity<Void> deleteOption(@PathVariable Long optionId) {
+        optionService.deleteOption(optionId);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @GetMapping
     public String getProducts(Model model, Pageable pageable) {
@@ -102,15 +124,6 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.delete(id);
         return "redirect:/api/products";
-<<<<<<< HEAD
-=======
-    }
-
-    @GetMapping("/{id}/options")
-    public ResponseEntity<List<Option>> getOptionsByProductId(@PathVariable("id") Long id) {
-        Product product = productService.findOne(id);
-        return ResponseEntity.ok(product.getOptions());
->>>>>>> a833893 (feat: Product 생성자 수정)
     }
 
 }
