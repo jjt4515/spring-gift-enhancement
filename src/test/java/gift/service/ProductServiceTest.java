@@ -46,13 +46,6 @@ public class ProductServiceTest {
     public void testRegisterProduct() {
         mockCategory = mock(Category.class);
         when(categoryRepository.findByName("패션")).thenReturn(Optional.of(mockCategory));
-<<<<<<< HEAD
-=======
-
-        ProductRequest productRequest = new ProductRequest("상의", 800, "상의.jpg", "패션");
-
-        when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
->>>>>>> 1c852fb (refactor: 서비스 테스트 코드 수정)
 
         ProductRequest productRequest = new ProductRequest("상의", 800, "상의.jpg", "패션");
         OptionRequest optionRequest = new OptionRequest("옵션1", 10);
@@ -119,13 +112,9 @@ public class ProductServiceTest {
     @Test
     public void testFindOneProduct() {
         mockProduct = mock(Product.class);
-<<<<<<< HEAD
-        Long productId = 1L;
-=======
 
         Long productId = 1L;
 
->>>>>>> 1c852fb (refactor: 서비스 테스트 코드 수정)
         when(mockProduct.getName()).thenReturn("상의");
         when(productRepository.findById(productId)).thenReturn(Optional.of(mockProduct));
 
@@ -154,7 +143,6 @@ public class ProductServiceTest {
         Long productId = 1L;
         ProductRequest productRequest = new ProductRequest("하의", 1200, "하의.jpg", "패션");
 
-<<<<<<< HEAD
         Category mockCategory = mock(Category.class);
         Product mockProduct = mock(Product.class);
 
@@ -175,16 +163,6 @@ public class ProductServiceTest {
             return null;
         }).when(mockProduct).update(eq(productRequest), eq(mockCategory));
 
-=======
-        when(productRepository.findById(productId)).thenReturn(Optional.of(mockProduct));
-        when(categoryRepository.findByName("패션")).thenReturn(Optional.of(mockCategory));
-
-        when(mockProduct.getName()).thenReturn("하의");
-        when(mockProduct.getPrice()).thenReturn(1200);
-        when(mockProduct.getImageUrl()).thenReturn("하의.jpg");
-        when(mockProduct.getCategory()).thenReturn(mockCategory);
-
->>>>>>> 1c852fb (refactor: 서비스 테스트 코드 수정)
         when(productRepository.save(any(Product.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         Product updatedProduct = productService.update(productId, productRequest);
@@ -200,11 +178,6 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).save(any(Product.class));
     }
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 1c852fb (refactor: 서비스 테스트 코드 수정)
     @Test
     public void testUpdateProductNotFound() {
         Long productId = 11L;
