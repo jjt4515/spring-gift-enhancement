@@ -61,23 +61,16 @@ public class ProductController {
     }
 
     @PostMapping("/{productId}/options")
-    public ResponseEntity<Option> addOption(@PathVariable Long productId, @RequestBody Option option) {
-        Option createdOption = optionService.addOptionToProduct(productId, option);
+    public ResponseEntity<Option> addOption(@PathVariable Long productId, @ModelAttribute @Valid OptionRequest optionRequest) {
+        Option createdOption = optionService.addOptionToProduct(productId, optionRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOption);
     }
 
-    @PutMapping("/options/{optionId}")
-    public ResponseEntity<Option> updateOption(@PathVariable Long optionId, @RequestBody Option optionDetails) {
-        Option updatedOption = optionService.updateOption(optionId, optionDetails);
-        return ResponseEntity.ok(updatedOption);
-    }
-
-    @DeleteMapping("/options/{optionId}")
-    public ResponseEntity<Void> deleteOption(@PathVariable Long optionId) {
-        optionService.deleteOption(optionId);
+    @DeleteMapping("/{productId}/{optionId}")
+    public ResponseEntity<Void> deleteOption(@PathVariable Long productId, @PathVariable Long optionId) {
+        optionService.deleteOption(productId, optionId);
         return ResponseEntity.noContent().build();
     }
-
 
     @GetMapping
     public String getProducts(Model model, Pageable pageable) {

@@ -18,4 +18,5 @@ public class OptionResponse {
     public Integer getQuantity() {
         return quantity;
     }
+
 }

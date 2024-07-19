@@ -12,7 +12,7 @@ public class Option {
 
     @Column(nullable = false)
     private String name;
-    
+
     @Column(nullable = false)
     private Integer quantity;
 
@@ -71,5 +71,9 @@ public class Option {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
