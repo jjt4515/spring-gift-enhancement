@@ -16,4 +16,19 @@ public class ErrorResponse {
         this.errors = errors;
         this.status = status;
     }
+<<<<<<< HEAD
+=======
+
+    public String getMessage() {
+        return message;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public Map<String, String> getErrors() {
+        return errors;
+    }
+>>>>>>> c874d0c (refactor: 에러 핸들링 리팩토링)
 }
