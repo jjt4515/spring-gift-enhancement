@@ -7,6 +7,7 @@ public class OptionRequest {
 
     @NotBlank(message = "옵션 이름을 입력하세요.")
     @Pattern(regexp = "^[\\w\\s()\\[\\]+\\-&/]+$")
+<<<<<<< HEAD
     @Size(max = 50, message = "옵션 이름은 공백을 포함하여 최대 50자까지 입력할 수 있습니다.")
     private String name;
 
@@ -27,4 +28,12 @@ public class OptionRequest {
     public Integer getQuantity(){
         return quantity;
     }
+=======
+    private String name;
+
+    @Min(1)
+    @Max(99999999)
+    @NotNull(message = "옵션 수량을 입력하세요.")
+    private Integer quantity;
+>>>>>>> 02d3c8c (feat: OptionRequest 생성)
 }
