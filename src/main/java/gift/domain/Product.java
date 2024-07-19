@@ -4,6 +4,7 @@ import gift.dto.request.ProductRequest;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -77,11 +78,8 @@ public class Product {
     }
 
     public Category getCategory() { return category; }
-<<<<<<< HEAD
 
     public List<Option> getOptions() {
         return options;
     }
-=======
->>>>>>> 3cc2d25 (feat: ProductService 수정)
 }
