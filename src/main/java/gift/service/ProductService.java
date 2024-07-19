@@ -1,12 +1,10 @@
 package gift.service;
 
 import gift.domain.Category;
-import gift.domain.Option;
 import gift.domain.Product;
 import gift.dto.request.OptionRequest;
 import gift.dto.request.ProductRequest;
 import gift.exception.CategoryNotFoundException;
-import gift.exception.DuplicateOptionNameException;
 import gift.exception.InvalidProductDataException;
 import gift.exception.ProductNotFoundException;
 import gift.repository.category.CategorySpringDataJpaRepository;
@@ -38,13 +36,7 @@ public class ProductService {
         Category category = categoryRepository.findByName(productRequest.getCategoryName()).
                 orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND));
 
-        List<Option> options = productRequest.getOptions().stream()
-                .map(optionRequest -> new Option(optionRequest.getName(), optionRequest.getQuantity(), null))
-                .collect(Collectors.toList());
-
-        checkForDuplicateOptions(options);
-
-        Product product = new Product(productRequest, category, options);
+        Product product = new Product(productRequest, category);
 
         try {
             Product savedProduct = productRepository.save(product);

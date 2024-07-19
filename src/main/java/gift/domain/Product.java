@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "product")
@@ -78,8 +77,11 @@ public class Product {
     }
 
     public Category getCategory() { return category; }
+<<<<<<< HEAD
 
     public List<Option> getOptions() {
         return options;
     }
+=======
+>>>>>>> 3cc2d25 (feat: ProductService 수정)
 }
