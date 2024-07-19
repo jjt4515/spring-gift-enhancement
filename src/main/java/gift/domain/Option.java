@@ -2,7 +2,6 @@ package gift.domain;
 
 import gift.dto.request.OptionRequest;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 
 @Entity
 public class Option {
@@ -10,7 +9,7 @@ public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(nullable = false)
     private String name;
 
