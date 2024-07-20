@@ -2,6 +2,7 @@ package gift.domain;
 
 import gift.dto.request.OptionRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Option {
@@ -35,26 +36,6 @@ public class Option {
     public void setProduct(Product product) {
         this.product = product;
         product.getOptions().add(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {

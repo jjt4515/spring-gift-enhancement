@@ -54,24 +54,6 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{productId}/options")
-    public ResponseEntity<List<Option>> getOptions(@PathVariable Long productId) {
-        List<Option> options = optionService.getOptionsByProductId(productId);
-        return ResponseEntity.ok(options);
-    }
-
-    @PostMapping("/{productId}/options")
-    public ResponseEntity<Option> addOption(@PathVariable Long productId, @ModelAttribute @Valid OptionRequest optionRequest) {
-        Option createdOption = optionService.addOptionToProduct(productId, optionRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdOption);
-    }
-
-    @DeleteMapping("/{productId}/{optionId}")
-    public ResponseEntity<Void> deleteOption(@PathVariable Long productId, @PathVariable Long optionId) {
-        optionService.deleteOption(productId, optionId);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping
     public String getProducts(Model model, Pageable pageable) {
         Page<Product> products = productService.getProducts(pageable);
