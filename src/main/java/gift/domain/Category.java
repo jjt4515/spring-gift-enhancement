@@ -49,6 +49,10 @@ public class Category {
         return id;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
     public void update(CategoryRequest categoryRequest){
         this.name = categoryRequest.getName();
         this.color = categoryRequest.getColor();

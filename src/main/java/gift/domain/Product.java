@@ -39,6 +39,7 @@ public class Product {
         this.price = price;
         this.imageUrl = imageUrl;
         this.category = category;
+        category.getProducts().add(this);
     }
 
     public Product(ProductRequest productRequest, Category category) {
@@ -49,7 +50,10 @@ public class Product {
         this.name = productRequest.getName();
         this.price = productRequest.getPrice();
         this.imageUrl = productRequest.getImageUrl();
+
+        this.category.getProducts().remove(this);
         this.category = category;
+        category.getProducts().add(this);
     }
 
     public long getId() {
