@@ -43,7 +43,7 @@ public class OptionService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(PRODUCT_NOT_FOUND));
 
-        optionRepository.findOptionByNameAndProductId(optionRequest.getName(), productId)
+        optionRepository.findByNameAndProductId(optionRequest.getName(), productId)
                 .ifPresent(option -> {
                     throw new DuplicateOptionNameException(DUPLICATE_OPTION_NAME);
                 });

@@ -3,6 +3,7 @@ package gift.domain;
 import gift.dto.request.CategoryRequest;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,16 +26,20 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
 
+    public Category(String name, String color, String imageUrl, String description) {
+        this.name = name;
+        this.color = color;
+        this.imageUrl = imageUrl;
+        this.description = description;
+    }
+
     public Category(CategoryRequest categoryRequest) {
-        this.name = categoryRequest.getName();
-        this.color = categoryRequest.getColor();
-        this.imageUrl = categoryRequest.getImageUrl();
-        this.description = categoryRequest.getDescription();
+        this(categoryRequest.getName(), categoryRequest.getColor(), categoryRequest.getImageUrl(), categoryRequest.getDescription());
     }
 
     public String getName() {

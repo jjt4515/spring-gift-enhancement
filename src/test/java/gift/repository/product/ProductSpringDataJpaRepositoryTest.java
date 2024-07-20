@@ -22,7 +22,7 @@ public class ProductSpringDataJpaRepositoryTest {
 
     @Test
     public void testFindById() {
-        Category category = new Category("패션");
+        Category category = new Category("패션", "color", "image.url", "description");
         categoryRepository.save(category);
         Product product = new Product("상의", 1000, "상의.jpg", category);
         Product savedProduct = productRepository.save(product);
@@ -35,7 +35,7 @@ public class ProductSpringDataJpaRepositoryTest {
 
     @Test
     public void testSave() {
-        Category category = new Category("패션");
+        Category category = new Category("패션", "color", "image.url", "description");
         categoryRepository.save(category);
         Product product = new Product("상의", 20, "상의.jpg", category);
 
@@ -46,7 +46,7 @@ public class ProductSpringDataJpaRepositoryTest {
 
     @Test
     public void testDelete() {
-        Category category = new Category("패션");
+        Category category = new Category("패션", "color", "image.url", "description");
         categoryRepository.save(category);
         Product product = new Product("상의", 50, "상의.jpg", category);
         Product savedProduct = productRepository.save(product);

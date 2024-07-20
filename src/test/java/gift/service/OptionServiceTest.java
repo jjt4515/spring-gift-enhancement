@@ -101,7 +101,7 @@ class OptionServiceTest {
         Product product = mock(Product.class);
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-        when(optionRepository.findOptionByName(optionRequest.getName())).thenReturn(Optional.of(mock(Option.class)));
+        when(optionRepository.findByNameAndProductId(optionRequest.getName(), 1L)).thenReturn(Optional.of(mock(Option.class)));
 
         assertThrows(DuplicateOptionNameException.class,
                 () -> optionService.addOptionToProduct(productId, optionRequest),
@@ -120,7 +120,7 @@ class OptionServiceTest {
         Product product = mock(Product.class);
 
         when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-        when(optionRepository.findOptionByName(optionRequest.getName())).thenReturn(Optional.empty());
+        when(optionRepository.findByNameAndProductId(optionRequest.getName(), 1L)).thenReturn(Optional.empty());
         when(optionRepository.save(any(Option.class))).thenReturn(expectedOption);
 
         Option addedOption = optionService.addOptionToProduct(productId, optionRequest);
@@ -163,20 +163,20 @@ class OptionServiceTest {
     public void 옵션삭제_성공() {
         Long productId = 1L;
         Long optionId = 2L;
-        Option option = mock(Option.class);
+        Option option1 = mock(Option.class);
 
         when(productRepository.existsById(productId)).thenReturn(true);
-        when(optionRepository.findById(optionId)).thenReturn(Optional.of(option));
+        when(optionRepository.findByIdAndProductId(optionId, productId)).thenReturn(Optional.of(option1));
         when(optionRepository.countOptionByProductId(productId)).thenReturn(2L);
 
         optionService.deleteOption(productId, optionId);
 
-        verify(optionRepository).delete(option);
+        verify(optionRepository).delete(option1);
     }
 
     @Test
     public void 옵션수량감소_성공() {
-        Product testProduct = new Product("테스트 상품", 1000, "test.jpg", new Category("테스트 카테고리"));
+        Product testProduct = new Product("테스트 상품", 1000, "test.jpg", new Category("테스트 카테고리", "color", "image.url", "description"));
         Option testOption = new Option("옵션1", 10);
         testOption.setProduct(testProduct);
 
@@ -190,8 +190,8 @@ class OptionServiceTest {
     }
 
     @Test
-    public void testSubtractOptionQuantity_insufficientQuantity() {
-        Product testProduct = new Product("테스트 상품", 1000, "test.jpg", new Category("테스트 카테고리"));
+    public void 옵션수량감소_수량부족() {
+        Product testProduct = new Product("테스트 상품", 1000, "test.jpg", new Category("테스트 카테고리", "color", "image.url", "description"));
         Option testOption = new Option("옵션1", 10);
         testOption.setProduct(testProduct);
 

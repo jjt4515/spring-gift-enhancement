@@ -2,6 +2,7 @@ package gift.domain;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,10 +20,10 @@ public class Member {
     private String password;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<WishlistItem> wishlistItems;
+    private List<WishlistItem> wishlistItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<TokenAuth> tokenAuths;
+    private List<TokenAuth> tokenAuths = new ArrayList<>();
 
     public Member() {
     }

@@ -36,7 +36,7 @@ public class WishlistSpringDataJpaRepositoryTest {
     private CategorySpringDataJpaRepository categoryRepository;
 
     private Category createCategory() {
-        Category category = new Category("Test Category");
+        Category category = new Category("Test Category", "color", "image.url", "description");
         return categoryRepository.save(category);
     }
 

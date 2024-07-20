@@ -13,5 +13,5 @@ public interface OptionSpringDataJpaRepository extends JpaRepository<Option, Lon
 
     Optional<Option> findByIdAndProductId(Long optionId, Long productId);
 
-    Optional<Option> findOptionByNameAndProductId(String name, Long productId);
+    Optional<Option> findByNameAndProductId(String name, Long productId);
 }

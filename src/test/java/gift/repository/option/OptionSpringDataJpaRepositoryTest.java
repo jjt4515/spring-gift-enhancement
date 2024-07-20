@@ -34,7 +34,7 @@ public class OptionSpringDataJpaRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        Category testCategory = new Category("테스트 카테고리");
+        Category testCategory = new Category("테스트 카테고리", "컬러", "image.url", "description");
         categoryRepository.save(testCategory);
 
         testProduct = new Product("테스트 상품", 1000, "test.jpg", testCategory);
@@ -58,12 +58,24 @@ public class OptionSpringDataJpaRepositoryTest {
     }
 
     @Test
-    public void testFindOptionByName() {
+    public void testFindByNameAndProductId() {
         Option option = new Option("옵션1", 10);
         option.setProduct(testProduct);
         optionRepository.save(option);
 
-        Optional<Option> foundOption = optionRepository.findOptionByName("옵션1");
+        Optional<Option> foundOption = optionRepository.findByNameAndProductId("옵션1", testProduct.getId());
+
+        assertThat(foundOption).isPresent();
+        assertThat(foundOption.get().getName()).isEqualTo("옵션1");
+    }
+
+    @Test
+    public void testFindByIdAndProductId() {
+        Option option = new Option("옵션1", 10);
+        option.setProduct(testProduct);
+        Option savedOption = optionRepository.save(option);
+
+        Optional<Option> foundOption = optionRepository.findByIdAndProductId(savedOption.getId(), testProduct.getId());
 
         assertThat(foundOption).isPresent();
         assertThat(foundOption.get().getName()).isEqualTo("옵션1");

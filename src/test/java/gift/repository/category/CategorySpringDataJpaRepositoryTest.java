@@ -17,7 +17,7 @@ public class CategorySpringDataJpaRepositoryTest {
 
     @Test
     public void testFindByName() {
-        Category category = new Category("패션");
+        Category category = new Category("패션", "파란색", "image.url", "description");
         categoryRepository.save(category);
 
         Optional<Category> foundCategory = categoryRepository.findByName("패션");
@@ -28,7 +28,7 @@ public class CategorySpringDataJpaRepositoryTest {
 
     @Test
     public void testExistsByName() {
-        Category category = new Category("패션");
+        Category category =  new Category("패션", "파란색", "image.url", "description");
         categoryRepository.save(category);
 
         boolean exists = categoryRepository.existsByName("패션");
@@ -38,7 +38,7 @@ public class CategorySpringDataJpaRepositoryTest {
 
     @Test
     public void testFindById() {
-        Category category = new Category("패션");
+        Category category =  new Category("패션", "파란색", "image.url", "description");
         Category savedCategory = categoryRepository.save(category);
 
         Optional<Category> foundCategory = categoryRepository.findById(savedCategory.getId());
@@ -49,7 +49,7 @@ public class CategorySpringDataJpaRepositoryTest {
 
     @Test
     public void testDelete() {
-        Category category = new Category("패션");
+        Category category = new Category("패션", "파란색", "image.url", "description");
         Category savedCategory = categoryRepository.save(category);
 
         categoryRepository.delete(savedCategory);
