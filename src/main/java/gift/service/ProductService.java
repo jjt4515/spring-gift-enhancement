@@ -45,7 +45,6 @@ public class ProductService {
         } catch (DataIntegrityViolationException e) {
             throw new InvalidProductDataException("상품 데이터가 유효하지 않습니다: " + e.getMessage(), e);
         }
-
     }
 
     public Page<Product> getProducts(Pageable pageable) {

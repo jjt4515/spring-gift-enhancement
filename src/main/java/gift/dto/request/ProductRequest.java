@@ -3,10 +3,6 @@ package gift.dto.request;
 import gift.validation.KakaoApproval;
 import jakarta.validation.constraints.*;
 
-import java.util.List;
-
-
-
 public class ProductRequest {
 
     @NotBlank(message = "상품 이름은 필수 항목입니다.")

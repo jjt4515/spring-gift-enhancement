@@ -38,7 +38,7 @@ public class CategoryService {
         if (categoryRepository.existsByName(categoryRequest.getName())) {
             throw new DuplicateCategoryNameException(DUPLICATE_CATEGORY_NAME);
         }
-        Category category = new Category(categoryRequest.getName());
+        Category category = new Category(categoryRequest);
         return categoryRepository.save(category);
     }
 
@@ -48,7 +48,7 @@ public class CategoryService {
         if (categoryRepository.existsByName(categoryRequest.getName())) {
             throw new DuplicateCategoryNameException(DUPLICATE_CATEGORY_NAME);
         }
-        existingCategory.setName(categoryRequest.getName());
+        existingCategory.update(categoryRequest);
         return categoryRepository.save(existingCategory);
     }
 
