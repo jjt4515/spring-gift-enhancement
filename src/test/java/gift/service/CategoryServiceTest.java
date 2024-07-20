@@ -79,7 +79,7 @@ public class CategoryServiceTest {
 
     @Test
     public void testCreateCategory() {
-        CategoryRequest categoryRequest = new CategoryRequest("교환권");
+        CategoryRequest categoryRequest = new CategoryRequest("교환권", "초록색", "image.url", "description");
         when(categoryRepository.existsByName(categoryRequest.getName())).thenReturn(false);
         when(categoryRepository.save(any(Category.class))).thenReturn(mockCategory1);
         when(mockCategory1.getName()).thenReturn("교환권");
@@ -94,7 +94,7 @@ public class CategoryServiceTest {
 
     @Test
     public void testCreateCategoryDuplicateName() {
-        CategoryRequest categoryRequest = new CategoryRequest("교환권");
+        CategoryRequest categoryRequest = new CategoryRequest("교환권", "초록색", "image.url", "description");
         when(categoryRepository.existsByName(categoryRequest.getName())).thenReturn(true);
 
         assertThrows(DuplicateCategoryNameException.class, () -> categoryService.createCategory(categoryRequest));
@@ -106,7 +106,7 @@ public class CategoryServiceTest {
     @Test
     public void testUpdateCategory() {
         Long categoryId = 1L;
-        CategoryRequest categoryRequest = new CategoryRequest("뷰티");
+        CategoryRequest categoryRequest = new CategoryRequest("뷰티", "초록색", "image.url", "description");
 
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(mockCategory1));
         when(categoryRepository.existsByName(categoryRequest.getName())).thenReturn(false);
@@ -128,7 +128,7 @@ public class CategoryServiceTest {
     @Test
     public void testUpdateCategoryNotFound() {
         Long categoryId = 11L;
-        CategoryRequest categoryRequest = new CategoryRequest("뷰티");
+        CategoryRequest categoryRequest = new CategoryRequest("뷰티", "초록색", "image.url", "description");
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
 
         assertThrows(CategoryNotFoundException.class, () -> categoryService.updateCategory(categoryId, categoryRequest));
@@ -141,7 +141,7 @@ public class CategoryServiceTest {
     @Test
     public void testUpdateCategoryDuplicateName() {
         Long categoryId = 1L;
-        CategoryRequest categoryRequest = new CategoryRequest("상품권");
+        CategoryRequest categoryRequest = new CategoryRequest("상품권", "초록색", "image.url", "description");
 
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(mockCategory1));
         when(categoryRepository.existsByName(categoryRequest.getName())).thenReturn(true);
